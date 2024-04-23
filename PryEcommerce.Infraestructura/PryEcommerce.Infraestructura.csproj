@@ -10,4 +10,8 @@
       <ProjectReference Include="..\PryEcommerce.Entidades\PryEcommerce.Entidades.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    </ItemGroup>
+
 </Project>
