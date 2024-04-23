@@ -6,4 +6,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PryEcommerce.Entidades\PryEcommerce.Entidades.csproj" />
+      <ProjectReference Include="..\PryEcommerce.Negocios\PryEcommerce.Negocios.csproj" />
+    </ItemGroup>
+
 </Project>

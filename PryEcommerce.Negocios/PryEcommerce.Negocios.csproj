@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PryEcommerce.Entidades\PryEcommerce.Entidades.csproj" />
+      <ProjectReference Include="..\PryEcommerce.Infraestructura\PryEcommerce.Infraestructura.csproj" />
+    </ItemGroup>
+
 </Project>
