@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PryEcommerce.Entidades", "PryEcommerce.Entidades\PryEcommerce.Entidades.csproj", "{AB1D4959-A8FE-49DF-9E2F-D9BD3F4301CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PryEcommerce.Negocios", "PryEcommerce.Negocios\PryEcommerce.Negocios.csproj", "{140BAC6A-6130-433D-A8D0-F076BCCE2C56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PryEcommerce.Infraestructura", "PryEcommerce.Infraestructura\PryEcommerce.Infraestructura.csproj", "{F548DAA1-1681-43CD-9CDD-7E0B82D2AD9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PryEcommerce.AplicacionWeb", "PryEcommerce.AplicacionWeb\PryEcommerce.AplicacionWeb.csproj", "{9EA90854-1F1B-451B-9C8D-0EE41DDD0676}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB1D4959-A8FE-49DF-9E2F-D9BD3F4301CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB1D4959-A8FE-49DF-9E2F-D9BD3F4301CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB1D4959-A8FE-49DF-9E2F-D9BD3F4301CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB1D4959-A8FE-49DF-9E2F-D9BD3F4301CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{140BAC6A-6130-433D-A8D0-F076BCCE2C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{140BAC6A-6130-433D-A8D0-F076BCCE2C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{140BAC6A-6130-433D-A8D0-F076BCCE2C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{140BAC6A-6130-433D-A8D0-F076BCCE2C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F548DAA1-1681-43CD-9CDD-7E0B82D2AD9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F548DAA1-1681-43CD-9CDD-7E0B82D2AD9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F548DAA1-1681-43CD-9CDD-7E0B82D2AD9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F548DAA1-1681-43CD-9CDD-7E0B82D2AD9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA90854-1F1B-451B-9C8D-0EE41DDD0676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA90854-1F1B-451B-9C8D-0EE41DDD0676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA90854-1F1B-451B-9C8D-0EE41DDD0676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA90854-1F1B-451B-9C8D-0EE41DDD0676}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
