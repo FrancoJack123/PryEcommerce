@@ -1,0 +1,70 @@
+@model PryEcommerce.Entidades.Usuario
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<section>
+    <div class="container px-4 px-lg-5 my-3">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-xl-5 col-lg-9">
+                <div class="card-body p-5 text-center">
+                    <form asp-action="Register" asp-controller="Login" method="post" class="mb-3">
+                        <h3 class="mb-5">Get Start Shopp</h3>
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="name" asp-for="nombres">
+                                    <label>Nombres</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="lastname" asp-for="apellidos">
+                                    <label>Apellidos</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="dni" asp-for="dni">
+                            <label>DNI</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="name@example.com" asp-for="telefono">
+                            <label>Telefono</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" placeholder="name@example.com" asp-for="email">
+                            <label>Correo Electronico</label>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="name" asp-for="password">
+                                    <label>Contraseña</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" placeholder="lastname" asp-for="confirmation_password">
+                                    <label>Confirmar Contraseña</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center flex-column">
+                            <button class="btn text-white btn-lg btn-block fs-6 fw-semibold" style="background-color: #222629;" href="#" type="submit">Register</button>
+                        </div>
+                    </form>
+                    @if (ViewBag.danger != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>@ViewBag.danger</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

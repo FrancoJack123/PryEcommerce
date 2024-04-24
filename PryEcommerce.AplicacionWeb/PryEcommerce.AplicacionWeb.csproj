@@ -11,4 +11,8 @@
       <ProjectReference Include="..\PryEcommerce.Negocios\PryEcommerce.Negocios.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
+    </ItemGroup>
+
 </Project>

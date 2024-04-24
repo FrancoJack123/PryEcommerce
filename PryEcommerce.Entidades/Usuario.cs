@@ -9,7 +9,8 @@ public class Usuario
     public string telefono { get; set; }
     public string email { get; set; }
     public string password { get; set; }
-    public string rol { get; set; }
+    public string? confirmation_password { get; set; }
+    public string rol { get; set; } = "USER";
     public bool? restablecer { get; set; }
     public bool? confirmar { get; set; }
     public string? token { get; set; }

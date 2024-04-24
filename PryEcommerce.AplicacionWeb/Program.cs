@@ -1,7 +1,27 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
+using PryEcommerce.Infraestructura;
+using PryEcommerce.Negocios;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+string? connectionString = builder.Configuration.GetConnectionString("cn1");
+
+if (connectionString != null)
+{
+    builder.Services.AddScoped<LoginServicio>(login => new LoginServicio(new LoginRepository(connectionString)));
+}
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Index";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.AccessDeniedPath = "";
+    });
 
 var app = builder.Build();
 
@@ -14,9 +34,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
