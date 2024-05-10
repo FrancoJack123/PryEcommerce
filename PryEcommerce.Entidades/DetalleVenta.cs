@@ -7,7 +7,15 @@ public class DetalleVenta
     public string nombre_producto { get; set; }
     public string url_img { get; set; }
     public decimal precio_unitario { get; set; }
-    public decimal precio_total { get; set; }
+
+    public decimal precio_total
+    {
+        get
+        {
+            return cantidad * precio_unitario;
+        }
+    }
+
     public Venta venta { get; set; }
     public Producto producto { get; set; }
 }

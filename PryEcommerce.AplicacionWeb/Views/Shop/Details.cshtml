@@ -1,0 +1,252 @@
+@using PryEcommerce.Entidades
+@model PryEcommerce.Entidades.Producto
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "_Layout";
+}
+
+<div class="container mb-3">
+    <!-- BreadCumps -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Shop" asp-action="Index">Shop</a></li>
+        <li class="breadcrumb-item active">Details</li>
+    </ol>
+    <div class="row gap-4 gap-xl-0">
+        <div class="col-xl-6">
+            <img class="card-img-top mb-5 mb-md-0" src="@Model.url_img" alt="..." width="660px" />
+        </div>
+    
+        <div class="col-xl-6">
+            <div class="ps-lg-10 mt-6 mt-md-0">
+                <!-- content -->
+                <a href="#!" class="mb-4 d-block">@Model.categoria.nombre</a>
+                <!-- heading -->
+                <h1 class="mb-3">@Model.nombre</h1>
+                <div class="fs-4">
+                    <!-- price -->
+                    <span class="fw-bold text-dark">$@Model.precio</span>
+                    @*<span class="text-decoration-line-through text-muted">$35</span>
+                    <span><small class="fs-6 ms-2 text-danger">26% Off</small></span>*@
+                </div>
+                <!-- hr -->
+                <hr class="my-6">
+                @*<div class="mb-4">
+                    <button type="button" class="btn btn-outline-secondary">250g</button>
+                    <!-- btn -->
+                    <button type="button" class="btn btn-outline-secondary">500g</button>
+                    <!-- btn -->
+                    <button type="button" class="btn btn-outline-secondary">1kg</button>
+                </div>*@
+                @if (Model.estado == true && Model.stock > 0)
+                {
+                    <form asp-action="AddCarritoVenta" method="get">
+                        <input type="hidden" name="id" value="@Model.id"/>
+                        <div>
+                            <!-- input -->
+                            <div class="col-4">
+                                <div class="input-group" style="width: 95px;">
+                                    <a class="btn-cart text-dark" type="button" onclick="cambiarCantidad(-1)">
+                                        <i class="bi bi-dash"></i>
+                                    </a>
+                                    <input type="text" id="cantidadInput" name="cantidad" class="form-control" style="padding: 3px 0.75rem;" value="1">
+                                    <a class="btn-cart text-dark" type="button" onclick="cambiarCantidad(1)">
+                                        <i class="bi bi-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 row justify-content-start g-2 align-items-center">
+                            <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
+                                <!-- button -->
+                                <button type="submit" class="btn-dev btn-nawijo">
+                                    <i class="feather-icon icon-shopping-bag me-2"></i>
+                                    Add to cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                }
+                @if (Model.estado == false && Model.stock > 0)
+                {
+                    <div class="row justify-content-start g-2 align-items-center">
+                        <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
+                            <button type="button" class="btn-dev btn-nawijo">
+                                <i class="feather-icon icon-shopping-bag me-2"></i>
+                                No disponible
+                            </button>
+                        </div>
+                    </div>
+                }
+                @if (Model.stock <= 0)
+                {
+                    <div class="row justify-content-start g-2 align-items-center">
+                        <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
+                            <button type="button" class="btn-dev btn-nawijo">
+                                <i class="feather-icon icon-shopping-bag me-2"></i>
+                                Sin Stock
+                            </button>
+                        </div>
+                    </div>
+                }
+                <!-- hr -->
+                <hr>
+                <div>
+                    <table class="table table-borderless mb-0">
+                        <tbody>
+                        <tr>
+                            <td>Code:</td>
+                            <td>P0012-@Model.id</td>
+                        </tr>
+                        <tr>
+                            <td>Descripcion:</td>
+                            <td>@Model.descripcion</td>
+                        </tr>
+                        <tr>
+                            <td>Estado:</td>
+                            @if (Model.estado == true && Model.stock > 0)
+                            {
+                                <td>Disponible</td>
+                            }
+                            @if (Model.estado == false && Model.stock > 0)
+                            {
+                                <td>No Disponible</td>
+                            }
+                            @if (Model.stock <= 0)
+                            {
+                                <td>Sin Stock</td>
+                            }
+                        </tr>
+                        <tr>
+                            <td>Marca:</td>
+                            <td>@Model.marca.nombre</td>
+                        </tr>
+                        <tr>
+                            <td>Shipping:</td>
+                            <td>
+                                <small>
+                                    01 day shipping.
+                                    <span class="text-muted">( Free pickup today)</span>
+                                </small>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 d-flex gap-3">
+                    <div class="dropdown">
+                        <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">Share</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-facebook me-2"></i>
+                                    Facebook
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-twitter me-2"></i>
+                                    Twitter
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-instagram me-2"></i>
+                                    Instagram
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="">
+                        <a class="btn btn-nawijo" asp-action="Index">Regresar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{ List<Producto> productos = ViewBag.list; }
+@if (productos.Count > 0)
+{
+    <div class="py-5 bg-light">
+        <div class="container">
+            <h2 class="fw-bolder mb-4">Related products</h2>
+            <div class="row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
+                @foreach (Producto pro in productos)
+                {
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-center position-relative">
+                                    @if (pro.estado == true)
+                                    {
+                                        <div class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                            Disponible
+                                        </div>
+                                    }
+                                    @if (pro.estado == false)
+                                    {
+                                        <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                            Sin Stock
+                                        </div>
+                                    }
+                                    <a href="shop-single.html">
+                                        <img src="@pro.url_img" class="mb-3 img-fluid" style="border-radius: 10px; width: 210px; height: 210px">
+                                    </a>
+                                </div>
+                                <div class="text-small mb-1">
+                                    <a href="#!" class="text-decoration-none text-muted">
+                                        <small>@pro.categoria.nombre</small>
+                                    </a>
+                                </div>
+                                <h2 class="text-cart">
+                                    @pro.nombre
+                                </h2>
+                                <div class="d-flex flex-column gap-3 justify-content-between align-items-center mt-3">
+                                    <div>
+                                        @*<span class="text-dark">$18</span> text-muted *@
+                                        <span class="text-dark">$@pro.precio</span>
+                                    </div>
+                                    <div class="d-flex gap-3">
+                                        <a href="cart.html" class="btn-dev btn-nawijo btn-sm">
+                                            <i class="bi bi-plus"></i>
+                                            Add
+                                        </a>
+                                        <a asp-action="Details" asp-controller="Shop" asp-route-id="@pro.id" class="btn-dev btn-nawijo btn-sm">
+                                            <i class="bi bi-eye"></i>
+                                            View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+        function cambiarCantidad(valor) {
+            // Obtener el valor actual del input
+            var inputCantidad = document.getElementById("cantidadInput");
+            var cantidad = parseInt(inputCantidad.value);
+        
+            // Si el valor es mayor que 1 y se está restando, restar 1 a la cantidad
+            // Si se está sumando, sumar 1 a la cantidad
+            if (cantidad > 1 || valor === 1) {
+                inputCantidad.value = cantidad + valor;
+            }
+        }
+    </script>
+}
+
+
+
+

@@ -1,0 +1,192 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container">
+    <h1 class="">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">Productos Card</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" asp-controller="Producto" asp-action="Index">View Details</a>
+                    <div class="small text-white"><svg class="svg-inline--fa fa-angle-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M246.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L178.7 256 41.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">Categorias Card</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" asp-controller="Categoria" asp-action="Index">View Details</a>
+                    <div class="small text-white"><svg class="svg-inline--fa fa-angle-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M246.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L178.7 256 41.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">Marcas Card</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" asp-controller="Marca" asp-action="Index">View Details</a>
+                    <div class="small text-white"><svg class="svg-inline--fa fa-angle-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M246.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L178.7 256 41.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body">Ventas Card</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" asp-controller="Venta" asp-action="Index">View Details</a>
+                    <div class="small text-white"><svg class="svg-inline--fa fa-angle-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M246.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L178.7 256 41.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="bi bi-bar-chart-line me-2"></i>
+                    Obtener Datos Ventas Por Producto
+                </div>
+                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="bi bi-pie-chart me-2"></i>
+                    Obtener Datos Productos En Stock
+                </div>
+                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="bi bi-table me-2"></i>
+            Ventas Productos Detalle
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Venta</th>
+                    <th>Img</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Monto</th>
+                    <th>Cliente</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>Venta</th>
+                    <th>Img</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Monto</th>
+                    <th>Cliente</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                @foreach (var consulta in ViewBag.VentasProductosDetalle)
+                {
+                    <tr>
+                        <td>@consulta.venta</td>
+                        <td class="align-middle border-top-0 w-0 text-center">
+                            <img src="@consulta.url_img" class="rounded" width="56px" height="56px">
+                        </td>
+                        <td>@consulta.producto</td>     
+                        <td>@consulta.cantidad</td>     
+                        <td>@consulta.precio_total</td>     
+                        <td>@consulta.monto</td>     
+                        <td>@consulta.usuario</td>     
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var procVentasProdc = @Html.Raw(Json.Serialize(ViewBag.procVentasProdc));
+        var ventVentasProdc = @Html.Raw(Json.Serialize(ViewBag.ventVentasProdc));
+        
+        var ctx = document.getElementById("myAreaChart");
+        var myLineChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: procVentasProdc,
+            datasets: [{
+               label: 'Total Ventas por Producto',
+               data: ventVentasProdc,
+               backgroundColor: 'rgba(54, 162, 235, 0.2)',
+               borderColor: 'rgba(54, 162, 235, 1)',
+               borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+               yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+               }]
+            }
+          }
+        });
+        
+        var procProdcStock = @Html.Raw(Json.Serialize(ViewBag.procProdcStock));
+        var stckProdcStock = @Html.Raw(Json.Serialize(ViewBag.stckProdcStock));
+                
+        var ctx = document.getElementById("myBarChart");
+        var myLineChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: procProdcStock,
+            datasets: [{
+              label: 'Productos en Stock',
+              data: stckProdcStock,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                 'rgba(255, 99, 132, 1)',
+                 'rgba(54, 162, 235, 1)',
+                 'rgba(255, 206, 86, 1)',
+                 'rgba(75, 192, 192, 1)',
+                 'rgba(153, 102, 255, 1)',
+                 'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+            }],
+          },
+          options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+          }
+        });
+        
+        $('#datatablesSimple').DataTable({
+                "pageLength": 5
+        });
+    </script>
+}

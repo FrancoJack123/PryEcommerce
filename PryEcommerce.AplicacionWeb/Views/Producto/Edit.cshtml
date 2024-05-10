@@ -1,0 +1,94 @@
+@model PryEcommerce.Entidades.Producto
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h1 class="">Productos</h1>
+    <ol class="breadcrumb mb-">
+       <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+       <li class="breadcrumb-item"><a asp-controller="Producto" asp-action="Index">Productos</a></li>
+       <li class="breadcrumb-item active">Edit</li>
+    </ol>
+    <div class="row">
+        <div class="mx-auto m-4">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input asp-for="id" class="form-control" type="hidden"/>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Categoria</label>
+                    <div class="col-sm-10">
+                        <select asp-for="categoria.id" asp-items="ViewBag.categorias" class="form-select"></select>
+                        <input type="hidden" asp-for="categoria.nombre" value="a"/>
+                        <span asp-validation-for="categoria.id" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Marca</label>
+                    <div class="col-sm-10">
+                        <select asp-for="marca.id" asp-items="ViewBag.marcas" class="form-select"></select>
+                        <input type="hidden" asp-for="marca.nombre" value="a"/>
+                        <span asp-validation-for="marca.id" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input asp-for="nombre" class="form-control" />
+                        <span asp-validation-for="nombre" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Descripcion</label>
+                    <div class="col-sm-10">
+                        <textarea asp-for="descripcion" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="descripcion" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Stock</label>
+                    <div class="col-sm-10">
+                        <input asp-for="stock" class="form-control" />
+                        <span asp-validation-for="stock" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Precio</label>
+                    <div class="col-sm-10">
+                        <input asp-for="precio" class="form-control" />
+                        <span asp-validation-for="precio" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Imagen</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="file" name="img"/>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="offset-sm-2 col-sm-5 d-grid">
+                        <button type="submit" class="btn btn-nawijo">Guardar</button>
+                    </div>
+                    <div class="col-sm-5 d-grid">
+                        <a asp-action="Index" class="btn btn-nawijo">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+            @if (ViewBag.danger != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <strong>@ViewBag.danger</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

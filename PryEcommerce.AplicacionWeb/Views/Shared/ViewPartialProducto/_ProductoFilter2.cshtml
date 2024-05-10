@@ -1,0 +1,67 @@
+@model IEnumerable<PryEcommerce.Entidades.Producto>
+@using PryEcommerce.Entidades
+
+<!-- Lista de Productos -->
+<div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center align-items-center mb-5">
+    @foreach (Producto pro in Model)
+    {
+        <div class="col-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center position-relative">
+                        @if (pro.estado == true && pro.stock > 0)
+                        {
+                            <div class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                Disponible
+                            </div>
+                        }
+                        @if (pro.estado == false && pro.stock > 0)
+                        {
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                No Disponible
+                            </div>
+                        }
+                        @if (pro.stock <= 0)
+                        {
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                Sin Stock
+                            </div>
+                        }
+                        <a href="shop-single.html">
+                            <img src="@pro.url_img" class="mb-3 img-fluid" style="border-radius: 10px; width: 210px; height: 210px">
+                        </a>
+                    </div>
+                    <div class="text-small mb-1">
+                        <a href="#!" class="text-decoration-none text-muted">
+                            <small>@pro.categoria.nombre</small>
+                        </a>
+                    </div>
+                    <h2 class="text-cart">
+                        @pro.nombre
+                    </h2>
+                    <div class="d-flex flex-column gap-3 justify-content-between align-items-center mt-3">
+                        <div>
+                            @*<span class="text-dark">$18</span> text-muted *@
+                            <span class="text-dark">$@pro.precio</span>
+                        </div>
+                        <div class="d-flex gap-3">
+                            @if (pro.estado == true && pro.stock > 0)
+                            {
+                                <a asp-action="AddCarritoVenta" asp-controller="Shop" asp-route-id="@pro.id" class="btn-dev btn-nawijo btn-sm">
+                                    <i class="bi bi-plus"></i>
+                                    Add
+                                </a>
+                            }
+                            <a asp-action="Details" asp-controller="Shop" asp-route-id="@pro.id" class="btn-dev btn-nawijo btn-sm">
+                                <i class="bi bi-eye"></i>
+                                View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

@@ -1,0 +1,84 @@
+@model IEnumerable<PryEcommerce.Entidades.Usuario>
+
+@{
+    ViewBag.Title = "Usuario";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h1 class="">Usuarios</h1>
+    <ol class="breadcrumb mb-4">
+       <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+       <li class="breadcrumb-item active">Usuarios</li>
+    </ol>
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <strong>@TempData["success"]</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+    }
+    @if (TempData["danger"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <strong>@TempData["danger"]</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <a asp-action="Create" class="btn btn-nawijo mb-4"><i class="bi bi-person-plus-fill"></i> Agregar</a>
+    <table class="table table-striped table-bordered rounded">
+        <thead>
+        <tr>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var usu in Model)
+        {
+            <tr>
+                <td>@usu.dni</td>
+                <td>@usu.nombres</td>
+                <td>@usu.apellidos</td>
+                <td>@usu.telefono</td>
+                <td>@usu.email</td>
+                <td class="d-flex justify-content-center">
+                    <form asp-action="Delete" method="get" onsubmit="return confirm('Deseas eliminar el usuario')">
+                        <input type="hidden" name="id" value="@usu.id"/>
+                        <button type="submit" class="btn btn-nawijo"><i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    <div class="mt-4 d-flex justify-content-between align-items-center">
+        <p>Mostrando @Model.Count() de @ViewBag.cantidad entradas</p>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link disabled" href="#">Previous</a>
+                </li>
+                @for (int i = 0; i < ViewBag.paginas; i++)
+                {
+                    <li class="@(i == (int)ViewBag.nropagina ? "page-item active" : "page-item")">
+                        <a asp-action="Index"
+                           asp-route-nropagina="@i"
+                           class="page-link">
+                            @(i + 1)
+                        </a>
+                    </li>
+                }
+                <li class="page-item">
+                    <a class="page-link disabled" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

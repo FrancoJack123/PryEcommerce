@@ -1,0 +1,81 @@
+@model PryEcommerce.Entidades.Usuario
+
+@{
+    ViewBag.Title = "Usuario";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h1 class="">Usuarios</h1>
+    <ol class="breadcrumb mb-">
+       <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+       <li class="breadcrumb-item"><a asp-controller="Usuario" asp-action="Index">Usuarios</a></li>
+       <li class="breadcrumb-item active">Create</li>
+    </ol>
+    <div class="row">
+        <div class="mx-auto m-4">
+            <form method="post">
+                <input asp-for="id" class="form-control" type="hidden"/>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">DNI</label>
+                    <div class="col-sm-10">
+                        <input asp-for="dni" class="form-control" />
+                        <span asp-validation-for="dni" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input asp-for="nombres" class="form-control" />
+                        <span asp-validation-for="nombres" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Apellidos</label>
+                    <div class="col-sm-10">
+                        <input asp-for="apellidos" class="form-control" />
+                        <span asp-validation-for="apellidos" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Telefono</label>
+                    <div class="col-sm-10">
+                        <input asp-for="telefono" class="form-control" />
+                        <span asp-validation-for="telefono" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input asp-for="email" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                        <input asp-for="password" class="form-control" />
+                        <span asp-validation-for="password" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                
+                <div class="row mt-4">
+                    <div class="offset-sm-2 col-sm-5 d-grid">
+                        <button type="submit" class="btn btn-nawijo">Guardar</button>
+                    </div>
+                    <div class="col-sm-5 d-grid">
+                        <a asp-action="Index" class="btn btn-nawijo">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+            @if (ViewBag.danger != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <strong>@ViewBag.danger</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

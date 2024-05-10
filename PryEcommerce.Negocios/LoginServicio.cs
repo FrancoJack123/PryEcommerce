@@ -1,7 +1,5 @@
-using Org.BouncyCastle.Asn1.Ocsp;
 using PryEcommerce.Entidades;
 using PryEcommerce.Infraestructura;
-using PryEcommerce.Infraestructura.Util.Correo;
 
 namespace PryEcommerce.Negocios;
 

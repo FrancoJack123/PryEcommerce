@@ -13,6 +13,8 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
+      <_ContentIncludedByDefault Remove="Views\Reporte\Productos.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Reporte\Ventas.cshtml" />
     </ItemGroup>
 
 </Project>

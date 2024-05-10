@@ -1,0 +1,45 @@
+@model PryEcommerce.Entidades.Categoria
+
+@{
+    ViewBag.Title = "Categoria";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h1 class="">Categorias</h1>
+    <ol class="breadcrumb mb-">
+       <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+       <li class="breadcrumb-item"><a asp-controller="Categoria" asp-action="Index">Categorias</a></li>
+       <li class="breadcrumb-item active">Edit</li>
+    </ol>
+    <div class="row">
+        <div class="mx-auto m-4">
+            <form method="post">
+                <input asp-for="id" class="form-control" type="hidden"/>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input asp-for="nombre" class="form-control" />
+                        <span asp-validation-for="nombre" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="offset-sm-2 col-sm-5 d-grid">
+                        <button type="submit" class="btn btn-nawijo">Guardar</button>
+                    </div>
+                    <div class="col-sm-5 d-grid">
+                        <a asp-action="Index" class="btn btn-nawijo">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+            @if (ViewBag.message != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <strong>@ViewBag.message</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

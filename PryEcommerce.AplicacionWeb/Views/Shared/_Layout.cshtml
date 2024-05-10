@@ -1,48 +1,82 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/fontawesome.min.css" integrity="sha512-UuQ/zJlbMVAw/UU8vVBhnI4op+/tFOpQZVT+FormmIEhRSCnJWyHiBbEVgM4Uztsht41f3FzVWgLuwzUqOObKw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <link href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css" rel="stylesheet">
+    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
+    <script src="assets/plugins/global/plugins.bundle.js"></script>
 </head>
 <body class="d-flex flex-column" style="min-height: 100vh">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+    <div class="container">
+        <a class="navbar-brand" asp-controller="Shop" asp-action="Index">Nawijo Devs</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">All Products</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" asp-controller="Login" asp-action="Index">Login</a></li>
+                @if (!User.IsInRole("ADMIN") || !User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" asp-controller="Shop" asp-action="Index">Shop</a>
+                    </li> 
+                }
+                @if (User.IsInRole("ADMIN"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" asp-controller="Dashboard" asp-action="Index">DashBoard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="mantenimientoDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mantenimiento</a>
+                        <ul class="dropdown-menu" aria-labelledby="mantenimientoDropdown">
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Categoria">Categorias</a></li>
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Marca">Marcas</a></li>
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Producto">Productos</a></li>
+                            <li><a class="dropdown-item" asp-action="Index" asp-controller="Usuario">Usuarios</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" asp-controller="Venta" asp-action="Index">Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" asp-controller="Shop" asp-action="Index">Ecommerce</a>
+                    </li>
+                }
             </ul>
-            <div class="d-flex gap-3">
-                <a class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+            <div class="d-flex gap-2">
+                <a asp-controller="Shop" asp-action="CarritoVentas" class="btn btn-nawijo" type="submit">
+                    <i class="bi bi-cart4">
+                    </i>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">@ViewContext.HttpContext.Session.GetString("cantidad")</span>
                 </a>
-                <a asp-controller="Login" asp-action="Index" class="btn btn-outline-dark">
-                    <i class="bi bi-person"></i>
-                </a>
-                <a asp-controller="Login" asp-action="Register" class="btn btn-outline-dark">
-                    <i class="bi bi-person-add"></i>
-                </a>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Login" asp-action="Index" class="btn btn-nawijo">
+                        <i class="bi bi-person"></i>
+                    </a>
+                    <a asp-controller="Login" asp-action="Register" class="btn btn-nawijo">
+                        <i class="bi bi-person-add"></i>
+                    </a>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Shop" asp-action="AllOrders" class="btn btn-nawijo">
+                        <i class="bi bi-basket"></i>
+                    </a>
+                    <a asp-controller="Login" asp-action="Index" class="btn btn-nawijo">
+                        <i class="bi bi-person-badge-fill"></i>
+                    </a>
+                    <a asp-controller="Login" asp-action="GoOut" class="btn btn-nawijo">
+                        <i class="bi bi-box-arrow-left"></i>
+                    </a>
+                }
             </div>
         </div>
     </div>
@@ -72,11 +106,15 @@
 <!-- Footer-->
 <footer class="py-5" style="margin-top: auto">
     <div class="container">
-        <p class="m-0 text-center text-dark">Copyright &copy; Your Website 2024</p></div>
+        <p class="m-0 text-center text-dark">Copyright &copy; Nawijo Devs 2024</p></div>
 </footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>

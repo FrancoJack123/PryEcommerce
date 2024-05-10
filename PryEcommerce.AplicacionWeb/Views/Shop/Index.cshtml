@@ -1,0 +1,303 @@
+@using PryEcommerce.Entidades
+@model IEnumerable<PryEcommerce.Entidades.Producto>
+
+@{
+    ViewBag.Title = "Shop";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <!-- BreadCumps -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">Shop</li>
+    </ol>
+    
+    <!-- Filtrado -->
+    <div class="col-12">
+        <!-- filter btn -->
+        <button class="btn-dev btn-nawijo mb-3" data-bs-toggle="collapse" href="#collapseFilter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-funnel me-1" viewBox="0 0 16 16">
+                <path
+                    d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z" />
+            </svg>
+            Filters
+        </button>
+
+        <!-- collapse -->
+        <div class="collapse show" id="collapseFilter">
+            <div class="row row-cols-lg-3 row-cols-1">
+                <!-- col -->
+                <div class="col">
+                    <!-- card -->
+                    <div class="card mb-4 mb-lg-0" style="max-height: 320px; height: auto">
+                        <div class="card-body p-6">
+                            <!-- content -->
+                            <h5 class="mb-3">Categorias</h5>
+                            <!-- nav -->
+                            <div class="overflow-auto" style="height: auto; max-height: 15rem;">
+                                <ul class="nav nav-category">
+                                <!-- nav item -->
+                                <li class="nav-item border-bottom w-100">
+                                    <a asp-action="Index" asp-controller="Shop"
+                                       asp-route-nombre="@ViewBag.nombre"
+                                       asp-route-categoria_id="0"
+                                       asp-route-marca_id="@ViewBag.marca_id"
+                                       asp-route-precio_min="@ViewBag.precio_min"
+                                       asp-route-precio_max="@ViewBag.precio_max"
+                                       asp-route-nropagina="@ViewBag.nropagina"
+                                       class="@( (ViewBag.categoria_id == 0) ? "nav-link" : "nav-link text-dark")">Ninguno</a>
+                                </li>
+                                @{ IEnumerable<Categoria> categorias = ViewBag.categorias; }
+                                @foreach (var cat in categorias)
+                                {
+                                    <!-- nav item -->
+                                    <li class="nav-item @((cat == categorias.Last()) ? "" : "border-bottom w-100")">
+                                        <a asp-action="Index" asp-controller="Shop"
+                                           asp-route-nombre="@ViewBag.nombre"
+                                           asp-route-categoria_id="@cat.id"
+                                           asp-route-marca_id="@ViewBag.marca_id"
+                                           asp-route-precio_min="@ViewBag.precio_min"
+                                           asp-route-precio_max="@ViewBag.precio_max"
+                                           asp-route-nropagina="@ViewBag.nropagina"
+                                           class="@( (ViewBag.categoria_id == cat.id) ? "nav-link" : "nav-link text-dark")">@cat.nombre</a>
+                                    </li>
+                                }
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- col -->
+                </div>
+                <div class="col">
+                    <!-- card -->
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body p-6">
+                            <!-- content -->
+                            <div>
+                                <h5 class="mb-3">Marcas</h5>
+                                <div class="my-4">
+                                    <!-- input -->
+                                    <input type="search" class="form-control" placeholder="Search by marcas" disabled>
+                                </div>
+                                <div class="overflow-auto" style="height: auto; max-height: 11rem;">
+                                    <form asp-action="Index" method="get" onchange="this.submit()" style="margin-left: 6px;">
+                                    <input type="hidden" name="nombre" value="@ViewBag.nombre">
+                                    <input type="hidden" name="categoria_id" value="@ViewBag.categoria_id">
+                                    <input type="hidden" name="precio_min" value="@ViewBag.precio_min">
+                                    <input type="hidden" name="precio_max" value="@ViewBag.precio_max">
+                                    <div class="form-check mb-2">
+                                        <!-- input -->
+                                        <input class="form-check-input" type="radio" value="0" id="Ninguno" name="marca_id" checked="@(0 == ViewBag.marca_id ? "checked" : null)">
+                                        <label class="form-check-label" for="Ninguno">Ninguno</label>
+                                    </div>
+                                    @foreach (var marca in ViewBag.marcas)
+                                    {
+                                        <div class="form-check mb-2">
+                                            <!-- input -->
+                                            <input class="form-check-input" type="radio" value="@marca.id" id="@marca.nombre" name="marca_id" checked="@(marca.id == ViewBag.marca_id ? "checked" : null)">
+                                            <label class="form-check-label" for="@marca.nombre">@marca.nombre</label>
+                                        </div>
+                                    }
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- col -->
+                </div>
+                <div class="col">
+                    <!-- card -->
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body p-6">
+                            <!-- content -->
+                            <div>
+                                <h5 class="mb-3">Price</h5>
+                                <div>
+                                    <small class="text-muted">Price:</small>
+                                    <span id="priceRange-value" class="small">$@ViewBag.precio_min - $@ViewBag.precio_max</span>
+                                </div>
+                                <form asp-action="Index" method="get" onchange="this.submit()">
+                                    <input type="hidden" name="nombre" value="@ViewBag.nombre">
+                                    <input type="hidden" name="categoria_id" value="@ViewBag.categoria_id">
+                                    <input type="hidden" name="marca_id" value="@ViewBag.marca_id">
+                                    <div class="d-flex gap-4 mt-2">
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="text" class="form-control" value="@ViewBag.precio_min" name="precio_min">
+                                            <span class="input-group-text">MIN</span>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="text" class="form-control" value="@ViewBag.precio_max" name="precio_max">
+                                            <span class="input-group-text">MAX</span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- col -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-md-flex justify-content-between align-items-center mb-4 mt-2">
+        <div>
+            @if (Model.Count() > 0)
+            {
+                <p class="mb-3 mb-md-0">
+                    Mostrando @Model.Count()  de @ViewBag.cantidad entradas
+                </p>
+            }
+            
+            @if (Model.Count() <= 0)
+            {
+                <p class="mb-3 mb-md-0">
+                    No se encontraron registros
+                </p>
+            }
+        </div>
+        <!-- list -->
+        <div class="d-flex justify-content-between align-items-center">
+            <a class="text-muted me-3" onclick="cambiarVistaParcial('PartialView1')"><i class="bi bi-list-ul"></i></a>
+            <a class="text-muted me-3" onclick="cambiarVistaParcial('PartialView2')"><i class="bi bi-grid"></i></a>
+            <a class="text-muted me-3" onclick="cambiarVistaParcial('PartialView3')"><i class="bi bi-grid-3x3-gap"></i></a>
+            <div class="me-2">
+                <!-- select -->
+                <select class="form-select" name="filas_pagina">
+                    <option value="3" selected>Show: 3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+            <div class="ms-2">
+                <form asp-action="Index" method="get" onchange="this.submit()">
+                    <input type="hidden" name="categoria_id" value="@ViewBag.categoria_id">
+                    <input type="hidden" name="marca_id" value="@ViewBag.marca_id">
+                    <input type="hidden" name="precio_min" value="@ViewBag.precio_min">
+                    <input type="hidden" name="precio_max" value="@ViewBag.precio_max">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar" name="nombre" value="@ViewBag.nombre">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de Productos -->
+    @if (Model.Count() > 0)
+    {
+        <div id="contenedorVistaParcial">
+            <partial name="ViewPartialProducto/_ProductoFilter2"></partial>
+        </div>
+        @*<div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center align-items-center mb-5">
+            @foreach (Producto pro in Model)
+            {
+                <div class="col-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center position-relative">
+                                @if (pro.estado == true)
+                                {
+                                    <div class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                        Disponible
+                                    </div>
+                                }
+                                @if (pro.estado == false)
+                                {
+                                    <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                        Sin Stock
+                                    </div>
+                                }
+                                <a href="shop-single.html">
+                                    <img src="@pro.url_img" class="mb-3" style="border-radius: 10px; width: 210px; height: 210px">
+                                </a>
+                            </div>
+                            <div class="text-small mb-1">
+                                <a href="#!" class="text-decoration-none text-muted">
+                                    <small>@pro.categoria.nombre</small>
+                                </a>
+                            </div>
+                            <h2 class="text-cart">
+                                @pro.nombre
+                            </h2>
+                            <div class="d-flex flex-column gap-3 justify-content-between align-items-center mt-3">
+                                <div>
+                                    $1$<span class="text-dark">$18</span>#1#
+                                    <span class="text-dark">$ @pro.precio</span>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a href="cart.html" class="btn-dev btn-nawijo btn-sm">
+                                        <i class="bi bi-plus"></i>
+                                        Add
+                                    </a>
+                                    <a href="product.html" class="btn-dev btn-nawijo btn-sm">
+                                        <i class="bi bi-eye"></i>
+                                        View
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>*@
+
+        <!-- Paginacion -->
+        <nav class="d-flex justify-content-center">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link mx-1" href="#" aria-label="Previous">
+                        <i class="feather-icon icon-chevron-left">&laquo;</i>
+                    </a>
+                </li>
+            
+                @for (int i = 0; i < ViewBag.paginas; i++)
+                {
+                    <li class="page-item">
+                        <a asp-action="Index"
+                           asp-route-nropagina="@i"
+                           class="@(i == (int)ViewBag.nropagina ? "page-link mx-1 active" : "page-link mx-1")">
+                            @(i + 1)
+                        </a>
+                    </li> 
+                }
+            
+                <li class="page-item">
+                    <a class="page-link mx-1" href="#" aria-label="Next">
+                        <i class="feather-icon icon-chevron-right">&raquo;</i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
+
+@section Scripts {
+    <script>
+         function cambiarVistaParcial(vista) {
+                $.ajax({
+                    url: '/Shop/CambiarVistaParcial?vista=' + vista,
+                    type: 'GET',
+                    success: function (result) {
+                        $('#contenedorVistaParcial').html(result);
+                        localStorage.setItem('vistaParcialPreferida', vista);
+                    },
+                    error: function () {
+                        alert('Hubo un error al cargar la vista parcial.');
+                    }
+                });
+         }
+            
+         $(document).ready(function() {
+            var vistaPreferida = localStorage.getItem('vistaParcialPreferida');
+            if (vistaPreferida) {
+                cambiarVistaParcial(vistaPreferida);
+            }
+         });
+    </script>
+}

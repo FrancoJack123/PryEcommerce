@@ -1,0 +1,87 @@
+@model IEnumerable<PryEcommerce.Entidades.DetalleVenta>
+
+@{
+    ViewBag.Title = "Venta";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h1 class="">Ventas</h1>
+    <ol class="breadcrumb mb-4">
+       <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+       <li class="breadcrumb-item active">Ventas</li>
+    </ol>
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <strong>@TempData["success"]</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+    }
+    @if (TempData["danger"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <strong>@TempData["danger"]</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <table class="table table-striped table-bordered rounded">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Product</th>
+            <th>Client</th>
+            <th>Order</th>
+            <th>Date</th>
+            <th>Items</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var detalleventa in Model)
+        {
+            <tr>
+                <td class="align-middle border-top-0 w-0 text-center">
+                    <img src="@detalleventa.url_img" class="rounded" width="56px" height="56px">
+                </td>
+                <td class="align-middle border-top-0">
+                    <h6 class="mb-0">@detalleventa.nombre_producto</h6>
+                    <span><small class="text-muted">@detalleventa.producto.categoria.nombre | @detalleventa.producto.marca.nombre</small></span>
+                </td>
+                <td class="align-middle border-top-0">@detalleventa.venta.usuario.nombres</td>
+                <td class="align-middle border-top-0">
+                    <a class="text-decoration-none text-dark text-inherit">#@detalleventa.venta.codigo</a>
+                </td>
+                <td class="align-middle border-top-0">@detalleventa.venta.fecha_venta</td>
+                <td class="align-middle border-top-0">@detalleventa.cantidad</td>
+                <td class="align-middle border-top-0">$@detalleventa.precio_total</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    <div class="mt-4 d-flex justify-content-between align-items-center">
+        <p>Mostrando @Model.Count() de @ViewBag.cantidad entradas</p>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link disabled" href="#">Previous</a>
+                </li>
+                @for (int i = 0; i < ViewBag.paginas; i++)
+                {
+                    <li class="@(i == (int)ViewBag.nropagina ? "page-item active" : "page-item")">
+                        <a asp-action="Index"
+                           asp-route-nropagina="@i"
+                           class="page-link">
+                            @(i + 1)
+                        </a>
+                    </li>
+                }
+                <li class="page-item">
+                    <a class="page-link disabled" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -4,7 +4,6 @@ using PryEcommerce.Entidades;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
-using PryEcommerce.Infraestructura.Util.Token;
 using PryEcommerce.Negocios;
 
 namespace PryEcommerce.AplicacionWeb.Controllers;
@@ -26,6 +25,12 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Index(string email, string password)
     {
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        {
+            TempData["danger"] = ViewBag.danger = "Por favor, complete todos los campos";
+            return View();
+        }
+        
         var user = _loginServicio.LoginUsuario(email, password);
         
         if (user != null)
@@ -46,14 +51,20 @@ public class LoginController : Controller
             {
                 new Claim(ClaimTypes.Name, user.nombres),
                 new Claim("Email", user.email),
+                new Claim("codigo", user.id.ToString()),
                 new Claim(ClaimTypes.Role, user.rol),
             };
-
+            
             var clasimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(clasimsIdentity));
+
+            if (user.rol != "ADMIN")
+            {
+                return RedirectToAction("Index","Shop");
+            }
             
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index","Dashboard");
         }
         
         TempData["danger"] = "Credenciales incorrectas";
@@ -64,7 +75,7 @@ public class LoginController : Controller
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index","Shop");
     }
     
     public IActionResult Register()
@@ -114,6 +125,5 @@ public class LoginController : Controller
         
         return View(usuario);
     }
-    
     
 }

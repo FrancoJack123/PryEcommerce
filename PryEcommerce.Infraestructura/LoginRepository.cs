@@ -22,12 +22,13 @@ public class LoginRepository
             while (rd.Read())
             {
                 user = new Usuario();
-                user.nombres = rd.GetString(0);
-                user.email = rd.GetString(1);
-                user.apellidos = rd.GetString(2);
-                user.rol = rd.GetString(3);
-                user.confirmar = rd.GetBoolean(4);
-                user.restablecer = rd.GetBoolean(5);
+                user.id = rd.GetInt32(0);
+                user.nombres = rd.GetString(1);
+                user.email = rd.GetString(2);
+                user.apellidos = rd.GetString(3);
+                user.rol = rd.GetString(4);
+                user.confirmar = rd.GetBoolean(5);
+                user.restablecer = rd.GetBoolean(6);
             }
             rd.Close();
         }
@@ -36,18 +37,10 @@ public class LoginRepository
 
     public string RegistrarUsuario(Usuario u)
     {
-        string message;
-        try
-        {
-            SqlHelper.ExecuteNonQuery(connectionString, "sp_RegistrarUsuario",
-                u.dni, u.nombres, u.apellidos, u.telefono, u.email, Encriptacion.EncriptarClave(u.password), u.rol, Token.GenerarToken());
-            //message = $"El usuario '{u.dni}' ha sido registrado con éxito. Por favor, revise su bandeja de correo electrónico para confirmar su cuenta.";
-            message = $"El usuario '{u.dni}' ha sido registrado con éxito";
-        }
-        catch (Exception e)
-        {
-            message = e.Message;
-        }
+        SqlHelper.ExecuteNonQuery(connectionString, "sp_RegistrarUsuario",
+            u.dni, u.nombres, u.apellidos, u.telefono, u.email, Encriptacion.EncriptarClave(u.password), u.rol, Token.GenerarToken());
+        //message = $"El usuario '{u.dni}' ha sido registrado con éxito. Por favor, revise su bandeja de correo electrónico para confirmar su cuenta.";
+        string message = "Su usuario ha sido registrado";
         return message;
     }
     
