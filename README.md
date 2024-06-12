@@ -4,12 +4,6 @@
 
 Este es un proyecto de e-commerce que permite a los usuarios navegar y comprar productos. Hay dos roles principales: usuario y administrador. Los administradores tienen acceso a funcionalidades adicionales para gestionar el sitio.
 
-## Características Principales
-
-- **Usuarios**: Navegar, buscar productos, agregar productos al carrito y realizar compras.
-- **Administradores**: Gestionar productos, visualizar estadísticas y gráficos de ventas.
-- **Seguridad**: Autenticación y autorización basada en roles.
-
 ## Tecnologías Utilizadas
 
 - **Lenguajes y Frameworks**:
@@ -56,21 +50,6 @@ Puedes ver una demo en vivo del proyecto en [este enlace](http://nawijodevs.some
 
 - **Correo electrónico**: admin@gmail.com
 - **Contraseña**: hola
-
-### Ejemplos de Uso
-
-- **Usuarios**: Registrarse, iniciar sesión, buscar productos, agregar al carrito y realizar compras.
-- **Administradores**: Iniciar sesión, gestionar inventario, visualizar estadísticas de ventas.
-
-## Contribución
-
-Las contribuciones son bienvenidas. Para contribuir, sigue estos pasos:
-
-1. Haz un fork del proyecto.
-2. Crea una nueva rama (`git checkout -b feature/nueva-caracteristica`).
-3. Realiza los cambios necesarios y haz commits (`git commit -m 'Agrega nueva característica'`).
-4. Envía tus cambios a tu repositorio fork (`git push origin feature/nueva-caracteristica`).
-5. Crea un Pull Request.
 
 ## Licencia
 
